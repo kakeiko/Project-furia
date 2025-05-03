@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Medalha(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
-    icone = models.ImageField(upload_to='medalhas/')
+    icone = models.CharField(max_length=255)
     criterio = models.CharField(max_length=255)
     
 class FanProfile(models.Model):
