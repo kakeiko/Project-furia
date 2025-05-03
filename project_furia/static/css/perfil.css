@@ -195,3 +195,10 @@
   font-size: 20px;
   margin: 20px 0px;
 }
+
+.medalhas-empty {
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 20px 0px;
+}

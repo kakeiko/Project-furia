@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-import dj_database_url  # adicione no topo
+import dj_database_url
 
 
 import os
@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'project_furia.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
+    'default': {dj_database_url.config(
         default=os.environ.get('DATABASE_URL')
-    )
+    )}
 }
 
 
