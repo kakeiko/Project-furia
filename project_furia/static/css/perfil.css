@@ -1,0 +1,197 @@
+@import url(./base.css);
+
+.div-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-card {
+  background-color: black;
+  border: 5px white solid;
+  border-radius: 10px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-perfil {
+  margin-top: 30px;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+.input-jogos,
+.input-jogador,
+.input-tipo,
+.input-twitter {
+  background-color: black;
+  color: #5c5ce0;
+  border: 2px #1a1a1a solid;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  width: 300px;
+  height: 50px;
+  padding: 3px;
+}
+
+.input-jogos::placeholder,
+.input-jogador::placeholder,
+.input-tipo::placeholder,
+.input-twitter::placeholder {
+  color: #5c5ce0;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 3px;
+}
+
+.btn-salvar {
+  background-color: #5c5ce0;
+  color: white;
+  font-weight: 500;
+  width: 300px;
+  font-size: 24px;
+  margin: 30px 0;
+}
+
+.btn-salvar:hover {
+  background-color: #7878fa;
+}
+
+.div-card-perfil {
+  width: 700px;
+  height: 300px;
+  background-color: #1a1a1a;
+  display: flex;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(92, 92, 224, 0.3);
+  justify-content: space-between;
+  text-align: center;
+}
+
+.jogo-tipo,
+.jogador-twitter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.text-perfil-specs {
+  margin: 0px;
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+}
+
+.text-specs {
+  margin: 0px;
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+}
+
+.text-username-perfil {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.card-interacao {
+  margin-top: 30px;
+  width: 120px;
+  height: 120px;
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(92, 92, 224, 0.3);
+  justify-content: center;
+  align-items: center;
+}
+
+.text-tweet-empty {
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 40px;
+}
+
+.tweet-card {
+  margin-top: 30px;
+  width: 500px;
+  background-color: #1a1a1a;
+  display: flex;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(92, 92, 224, 0.3);
+  justify-content: space-between;
+  text-align: center;
+}
+
+.tweet {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.img-X {
+  width: 70px;
+  height: 50px;
+}
+
+.classificacao {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.classificacao-torcedor {
+  color: #7878fa;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.classificacao-furioso {
+  color: #daa520;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.text-medalhas {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin: 30px 0px;
+}
+
+.medalhas {
+  width: 1000px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.medalha {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-medalha {
+  width: 150px;
+}
+
+.titulo-medalha {
+  color: white;
+  font-size: 20px;
+  margin: 20px 0px;
+}

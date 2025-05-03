@@ -1,0 +1,23 @@
+@import url(./base.css);
+
+body {
+  background-image: url(../imagens/foto-fundo.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.text-home {
+  color: white;
+}
+
+.btn-cadastro {
+  background-color: #5c5ce0;
+  color: white;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.btn-cadastro:hover {
+  background-color: #7878fa;
+}

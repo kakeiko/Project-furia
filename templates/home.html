@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+<link rel="stylesheet" href="{% static '/css/home.css' %}" />
+<div class="container text-center mt-5 div-home">
+  <h1 class="mb-4 text-home">
+    Venha se tornar um verdadeiro FURIOSO e nós deixe saber mais sobre os nossos
+    fãs!
+  </h1>
+  <a href="{% url 'cadastro' %}" class="btn me-2 btn-cadastro"
+    >Entre para o time</a
+  >
+</div>
+{% endblock %}

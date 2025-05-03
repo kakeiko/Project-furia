@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static '/css/perfil.css' %}" />
+<div class="div-container">
+  {% if perfil %} {% csrf_token %}
+  <h1 class="text-username-perfil">{{ user.username }}</h1>
+  {% if perfil.interacoes <= 5 %}
+  <h2 class="classificacao">Aspirante</h2>
+  {% elif perfil.interacoes >= 10 and perfil.interacoes <= 10 %}
+  <h2 class="classificacao-torcedor">Torcedor</h2>
+  {% elif perfil.interacoes >= 30 %}
+  <h2 class="classificacao-furioso">FURIOSO</h2>
+  {% endif %}
+  <div class="div-card-perfil">
+    <div class="jogo-tipo">
+      <div class="jogos">
+        <p class="text-perfil-specs">Jogos Favoritos:</p>
+        <p class="text-specs">{{ perfil.jogos_favoritos }}</p>
+      </div>
+      <div class="tipo">
+        <p class="text-perfil-specs">Tipo de Conteúdo:</p>
+        <p class="text-specs">{{ perfil.tipo_conteudo }}</p>
+      </div>
+    </div>
+    <div class="jogador-twitter">
+      <div class="jogador">
+        <p class="text-perfil-specs">Jogador Favorito:</p>
+        <p class="text-specs">{{ perfil.jogador_favorito }}</p>
+      </div>
+      <div class="twitter">
+        <p class="text-perfil-specs">Twitter:</p>
+        <p class="text-specs">@{{ perfil.twitter }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="card-interacao">
+    <p class="text-perfil-specs">Interações:</p>
+    <p class="text-specs">{{ perfil.interacoes }}</p>
+  </div>
+  {% for tweet in perfil.tweets.all %}
+  <div class="tweet-card">
+    <p class="tweet">{{ tweet.texto }}</p>
+    <img src="{% static '/imagens/logo-X.webp' %}" alt="" class="img-X" />
+  </div>
+  {% empty %}
+  <p class="text-tweet-empty">Você ainda não falou sobre a FURIA no Twitter!</p>
+  {% endfor %}
+  <h3 class="text-medalhas">Minhas Medalhas</h3>
+  <div class="medalhas">
+    {% for medalha in perfil.medalhas.all %}
+    <div class="medalha">
+      <img src="{{ medalha.icone.url }}" alt="" class="img-medalha" />
+      <span class="titulo-medalha">{{ medalha.nome }}</span>
+    </div>
+    {% empty %}
+    <p>Você ainda não conquistou nenhuma medalha.</p>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="div-card">
+    <h2 class="text-perfil">Perfil do Fã</h2>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-salvar">Salvar Perfil</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
