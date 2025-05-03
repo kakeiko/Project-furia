@@ -40,7 +40,7 @@ def perfil(request):
     if request.user.is_authenticated:
         try:
             perfil = FanProfile.objects.get(user=request.user)
-            tweet = Tweets.objects.filter(fanprofile=perfil)
+            tweet = Tweets.objects.filter(fanprofile=perfil).order_by('-id')[:5]
             conquistarMedalha(perfil)
             perfil.save()
             form = None
