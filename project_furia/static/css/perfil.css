@@ -186,10 +186,6 @@
   align-items: center;
 }
 
-.img-medalha {
-  width: 150px;
-}
-
 .titulo-medalha {
   color: white;
   font-size: 20px;
@@ -213,4 +209,23 @@
 
 .btn-atualizar:hover {
   background-color: #7878fa;
+}
+
+.todas-medalhas {
+  width: 1000px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.text-medalha {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.titulo-medalha-outra {
+  color: white;
+  font-size: 20px;
+  margin: 10px 0px;
 }

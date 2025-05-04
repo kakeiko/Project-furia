@@ -60,6 +60,14 @@
     <p class="medalhas-empty">Você ainda não conquistou nenhuma medalha.</p>
     {% endfor %}
   </div>
+  <div class="todas-medalhas">
+    {% for medalha in medalhas %}
+    <div class="medalha">
+      <span class="titulo-medalha-outra">{{ medalha.nome }}</span>
+      <span class="text-medalha">{{ medalha.criterio }}</span>
+    </div>
+    {% endfor %}
+  </div>
   {% else %}
   <div class="div-card">
     <h2 class="text-perfil">Perfil do Fã</h2>

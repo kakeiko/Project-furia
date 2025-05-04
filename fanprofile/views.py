@@ -38,6 +38,7 @@ def perfil(request):
         try:
             perfil = FanProfile.objects.get(user=request.user)
             tweet = Tweets.objects.filter(fanprofile=perfil).order_by('-id')[:5]
+            medalhas = Medalha.objects.all()
             conquistarMedalha(perfil)
             perfil.save()
             form = None
@@ -63,7 +64,7 @@ def perfil(request):
     else:
         return redirect('cadastro')
 
-    return render(request, 'perfil.html', {'form': form, 'perfil': perfil, 'tweet': tweet})
+    return render(request, 'perfil.html', {'form': form, 'perfil': perfil, 'tweet': tweet, 'medalhas':medalhas })
 
 def tweetsFuria(username):
     user = client.get_user(username=username)
@@ -103,13 +104,14 @@ def atualizarTweets(request):
     perfil = FanProfile.objects.get(user=request.user)
     novos_tweets = tweetsFuria(perfil.twitter)
 
+    tweets_salvos = 0
+
     for tweet in novos_tweets:
         if not Tweets.objects.filter(fanprofile=perfil, texto=tweet['texto']).exists():
             Tweets.objects.create(fanprofile=perfil, texto=tweet['texto'])
-        else:
-            novos_tweets.remove[tweet]
+            tweets_salvos += 1
 
-    perfil.interacoes += len(novos_tweets)
+    perfil.interacoes += tweets_salvos
     perfil.save()
 
     return redirect('perfil')
