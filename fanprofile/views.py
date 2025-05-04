@@ -48,9 +48,12 @@ def perfil(request):
         try:
             conquistarMedalha(perfil)
         except Exception as e:
-            print(f"Erro em conquistarMedalha: {e}")
+            print("Erro em conquistarMedalha:", e)
+            traceback.print_exc()
         perfil.save()
-    except FanProfile.DoesNotExist:
+    except Exception as e:
+        print("Erro ao carregar perfil:", e)
+        traceback.print_exc()
         perfil = None
         if request.method == 'POST':
             form = FanProfileForm(request.POST)
@@ -59,11 +62,16 @@ def perfil(request):
                 novo_perfil.user = request.user
                 novo_perfil.save()
 
-                tweets = tweetsFuria(novo_perfil.twitter)
-                for t in tweets:
-                    Tweets.objects.create(fanprofile=novo_perfil, texto=t['texto'])
-                novo_perfil.interacoes += len(tweets)
-                novo_perfil.save()
+                try:
+                    tweets = tweetsFuria(novo_perfil.twitter)
+                    for t in tweets:
+                        Tweets.objects.create(fanprofile=novo_perfil, texto=t['texto'])
+                    novo_perfil.interacoes += len(tweets)
+                    novo_perfil.save()
+                except Exception as e:
+                    print("Erro ao buscar tweets:", e)
+                    traceback.print_exc()
+
                 return redirect('perfil')
         else:
             form = FanProfileForm()
