@@ -44,7 +44,7 @@
   {% empty %}
   <p class="text-tweet-empty">Você ainda não falou sobre a FURIA no Twitter!</p>
   {% endfor %}
-  <form action="{% url 'atualizar_tweets' %}" method="post">
+  <form action="{% url 'atualizar' %}" method="post">
     {% csrf_token %}
     <button type="submit" class="btn me-2 btn-atualizar">
       Atualizar Tweets
