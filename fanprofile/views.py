@@ -36,34 +36,37 @@ def LoginPage(request):
     return render(request, 'login.html', {'form': form})
 
 def perfil(request):
-    if request.user.is_authenticated:
-        try:
-            perfil = FanProfile.objects.get(user=request.user)
-            tweet = Tweets.objects.filter(fanprofile=perfil).order_by('-id')[:5]
-            conquistarMedalha(perfil)
-            perfil.save()
-            form = None
-        except FanProfile.DoesNotExist:
-            perfil = None
-            tweet=None
-            if request.method == 'POST':
-                form = FanProfileForm(request.POST)
-                if form.is_valid():
-                    novo_perfil = form.save(commit=False)
-                    novo_perfil.user = request.user
-                    novo_perfil.save()
-
-                    tweets = tweetsFuria(novo_perfil.twitter)
-                    for tweet in tweets:
-                        Tweets.objects.create(fanprofile=novo_perfil, texto=tweet['texto'])
-                    novo_perfil.interacoes += len(tweets)
-                    novo_perfil.save()
-                    return redirect('perfil')
-            else:
-                form = FanProfileForm()
-            return render(request, 'perfil.html', {'form': form, 'perfil': perfil, 'tweet': tweet})
-    else:
+    if not request.user.is_authenticated:
         return redirect('cadastro')
+
+    form = None
+    tweet = None
+
+    try:
+        perfil = FanProfile.objects.get(user=request.user)
+        tweet = Tweets.objects.filter(fanprofile=perfil).order_by('-id')[:5]
+        try:
+            conquistarMedalha(perfil)
+        except Exception as e:
+            print(f"Erro em conquistarMedalha: {e}")
+        perfil.save()
+    except FanProfile.DoesNotExist:
+        perfil = None
+        if request.method == 'POST':
+            form = FanProfileForm(request.POST)
+            if form.is_valid():
+                novo_perfil = form.save(commit=False)
+                novo_perfil.user = request.user
+                novo_perfil.save()
+
+                tweets = tweetsFuria(novo_perfil.twitter)
+                for t in tweets:
+                    Tweets.objects.create(fanprofile=novo_perfil, texto=t['texto'])
+                novo_perfil.interacoes += len(tweets)
+                novo_perfil.save()
+                return redirect('perfil')
+        else:
+            form = FanProfileForm()
 
     return render(request, 'perfil.html', {'form': form, 'perfil': perfil, 'tweet': tweet})
 
@@ -113,11 +116,4 @@ def atualizarTweets(request):
 
     return redirect('perfil')
 
-def error_404(request, exception):
-    return render(request, '404.html', status=404)
 
-def error_500(request):
-    return render(request, '500.html', status=500)
-
-def error_429(request):
-    return render(request, '429.html', status=429)
