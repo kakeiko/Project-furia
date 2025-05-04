@@ -104,7 +104,8 @@ def atualizarTweets(request):
     novos_tweets = tweetsFuria(perfil.twitter)
 
     for tweet in novos_tweets:
-        Tweets.objects.create(fanprofile=perfil, texto=tweet['texto'])
+        if not Tweets.objects.filter(fanprofile=perfil, texto=tweet['texto']).exists():
+            Tweets.objects.create(fanprofile=perfil, texto=tweet['texto'])
 
     perfil.interacoes += len(novos_tweets)
     perfil.save()
