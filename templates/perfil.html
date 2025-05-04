@@ -44,11 +44,16 @@
   {% empty %}
   <p class="text-tweet-empty">Você ainda não falou sobre a FURIA no Twitter!</p>
   {% endfor %}
+  <form action="{% url 'atualizar_tweets' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn me-2 btn-atualizar">
+      Atualizar Tweets
+    </button>
+  </form>
   <h3 class="text-medalhas">Minhas Medalhas</h3>
   <div class="medalhas">
     {% for medalha in perfil.medalhas.all %}
     <div class="medalha">
-      <img src="{{ medalha.icone.url }}" alt="" class="img-medalha" />
       <span class="titulo-medalha">{{ medalha.nome }}</span>
     </div>
     {% empty %}

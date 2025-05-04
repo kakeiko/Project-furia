@@ -35,7 +35,6 @@ def LoginPage(request):
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
-@login_required
 def perfil(request):
     if request.user.is_authenticated:
         try:
@@ -101,3 +100,24 @@ def conquistarMedalha(perfil):
     if interacoes >= 30:
         medalha= Medalha.objects.get(nome="Medalha FURIOSO")
         perfil.medalhas.add(medalha)
+
+def atualizarTweets(request):
+    perfil = FanProfile.objects.get(user=request.user)
+    novos_tweets = tweetsFuria(perfil.twitter)
+
+    for tweet in novos_tweets:
+        Tweets.objects.create(fanprofile=perfil, texto=tweet['texto'])
+
+    perfil.interacoes += len(novos_tweets)
+    perfil.save()
+
+    return redirect('perfil')
+
+def error_404(request, exception):
+    return render(request, '404.html', status=404)
+
+def error_500(request):
+    return render(request, '500.html', status=500)
+
+def error_429(request):
+    return render(request, '429.html', status=429)

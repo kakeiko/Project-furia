@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static '/css/error.css' %}" />
+<div class="erro-container container text-center mt-5 div-home">
+  <h1 class="titulo-error">404 - Página não encontrada</h1>
+  <p class="text-error">
+    A página que você procurou não existe ou foi removida.
+  </p>
+  <a href="{% url 'home' %}" class="btn me-2 btn-voltar"
+    >Voltar à Página Inicial</a
+  >
+</div>
+{% endblock %}

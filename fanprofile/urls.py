@@ -7,4 +7,6 @@ urlpatterns = [
     path('login/', views.LoginPage, name='login'),
     path('perfil/', views.perfil, name='perfil'),
     path('logout/', views.logoutPage, name="logout"),
+    path('atualizar/', views.atualizarTweets, name='atualizar'),
 ]
+
