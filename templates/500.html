@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static '/css/error.css' %}" />
+<div class="erro-container container text-center mt-5 div-home">
+  <h1 class="titulo-error">500 - Erro Interno no Servidor</h1>
+  <p class="text-error">
+    Algo deu errado. Estamos trabalhando para corrigir isso.
+  </p>
+  <a href="{% url 'home' %}" class="btn me-2 btn-voltar"
+    >Voltar à Página Inicial</a
+  >
+</div>
+{% endblock %}

@@ -34,42 +34,34 @@ def LoginPage(request):
     return render(request, 'login.html', {'form': form})
 
 def perfil(request):
-    if not request.user.is_authenticated:
-        return redirect('cadastro')
-
-    form = None
-    tweet = None
-
-    try:
-        perfil = FanProfile.objects.get(user=request.user)
-        tweet = Tweets.objects.filter(fanprofile=perfil).order_by('-id')[:5]
+    if request.user.is_authenticated:
         try:
+            perfil = FanProfile.objects.get(user=request.user)
+            tweet = Tweets.objects.filter(fanprofile=perfil).order_by('-id')[:5]
             conquistarMedalha(perfil)
-        except Exception as e:
-            print("Erro em conquistarMedalha:", e)
-        perfil.save()
-    except Exception as e:
-        print("Erro ao carregar perfil:", e)
-        perfil = None
-        if request.method == 'POST':
-            form = FanProfileForm(request.POST)
-            if form.is_valid():
-                novo_perfil = form.save(commit=False)
-                novo_perfil.user = request.user
-                novo_perfil.save()
+            perfil.save()
+            form = None
+        except FanProfile.DoesNotExist:
+            perfil = None
+            tweet=None
+            if request.method == 'POST':
+                form = FanProfileForm(request.POST)
+                if form.is_valid():
+                    novo_perfil = form.save(commit=False)
+                    novo_perfil.user = request.user
+                    novo_perfil.save()
 
-                try:
                     tweets = tweetsFuria(novo_perfil.twitter)
-                    for t in tweets:
-                        Tweets.objects.create(fanprofile=novo_perfil, texto=t['texto'])
+                    for tweet in tweets:
+                        Tweets.objects.create(fanprofile=novo_perfil, texto=tweet['texto'])
                     novo_perfil.interacoes += len(tweets)
                     novo_perfil.save()
-                except Exception as e:
-                    print("Erro ao buscar tweets:", e)
-
-                return redirect('perfil')
-        else:
-            form = FanProfileForm()
+                    return redirect('perfil')
+            else:
+                form = FanProfileForm()
+            return render(request, 'perfil.html', {'form': form, 'perfil': perfil, 'tweet': tweet})
+    else:
+        return redirect('cadastro')
 
     return render(request, 'perfil.html', {'form': form, 'perfil': perfil, 'tweet': tweet})
 
