@@ -47,11 +47,9 @@ def perfil(request):
             conquistarMedalha(perfil)
         except Exception as e:
             print("Erro em conquistarMedalha:", e)
-            traceback.print_exc()
         perfil.save()
     except Exception as e:
         print("Erro ao carregar perfil:", e)
-        traceback.print_exc()
         perfil = None
         if request.method == 'POST':
             form = FanProfileForm(request.POST)
@@ -68,7 +66,6 @@ def perfil(request):
                     novo_perfil.save()
                 except Exception as e:
                     print("Erro ao buscar tweets:", e)
-                    traceback.print_exc()
 
                 return redirect('perfil')
         else:
