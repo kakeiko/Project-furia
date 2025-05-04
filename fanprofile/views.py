@@ -106,6 +106,8 @@ def atualizarTweets(request):
     for tweet in novos_tweets:
         if not Tweets.objects.filter(fanprofile=perfil, texto=tweet['texto']).exists():
             Tweets.objects.create(fanprofile=perfil, texto=tweet['texto'])
+        else:
+            novos_tweets.remove[tweet]
 
     perfil.interacoes += len(novos_tweets)
     perfil.save()
